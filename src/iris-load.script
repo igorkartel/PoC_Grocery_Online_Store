@@ -1,0 +1,25 @@
+zn "APP"
+
+// Загрузка всех классов в APP namespace
+do $System.OBJ.LoadDir("/opt/irisapp/src", "cuk","",1)
+
+// Сидирование данных
+try {
+    write !, "Seeding region data...", !
+    do ##class(GroceryApp.utils.Seed).SeedRegions()
+    write !, "Seeding completed successfully!", !
+} catch ex {
+    write !, "Error during seeding regions: ", ex.DisplayString(), !
+}
+
+zn "%SYS"
+
+// Создание роли и пользователя
+do ##class(Security.Roles).Create("CustomAdmin", "Custom admin role for OGS application")
+do ##class(Security.Users).Create("admin%40admin.com", "%All, CustomAdmin", "password", "Custom SuperUser")
+
+// Права на базы данных
+// do ##class(App.Installer).SetupDBPermissions("/code/storeCode/", 1)
+do ##class(Security.Users).UnExpireUserPasswords("*")
+
+halt
