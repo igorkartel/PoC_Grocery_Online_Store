@@ -12,14 +12,12 @@ try {
     write !, "Error during seeding regions: ", ex.DisplayString(), !
 }
 
+set stmt = ##class(%SQL.Statement).%New()
+do stmt.%Execute("GRANT SELECT ON TABLE GroceryApp_data.Region TO GroceryAppUnknownUser")
+
 zn "%SYS"
 
-// Создание роли и пользователя
-do ##class(Security.Roles).Create("CustomAdmin", "Custom admin role for OGS application")
-do ##class(Security.Users).Create("admin%40admin.com", "%All, CustomAdmin", "password", "Custom SuperUser")
-
-// Права на базы данных
-// do ##class(App.Installer).SetupDBPermissions("/code/storeCode/", 1)
-do ##class(Security.Users).UnExpireUserPasswords("*")
+do ##class(Security.Users).AddRoles("UnknownUser", "GroceryAppUnknownUser", 1)
+do ##class(Security.Users).AddRoles("SuperUser", "%all, CustomAdmin", 1)
 
 halt

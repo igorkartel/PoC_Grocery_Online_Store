@@ -60,6 +60,8 @@ ClassMethod OnPage() As %Status
             return $$$OK
         }
 
+        do ..RenderHeaderAndApplyStyles()
+
         &html<
         <div class="form-container">
         >

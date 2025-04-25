@@ -5,6 +5,8 @@ USER root
 WORKDIR /opt/irisapp
 
 RUN chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /opt/irisapp && \
+    mkdir -p /external/durable && \
+    chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /external/durable && \
     mkdir -p /code/storeCode && \
     chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /code/storeCode
 

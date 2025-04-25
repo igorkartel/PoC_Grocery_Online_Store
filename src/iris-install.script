@@ -6,4 +6,11 @@ do $system.OBJ.Load("/opt/irisapp/src/App.Installer.cls","ck")
 // Установка неймспейса и баз данных
 do ##class(App.Installer).Setup()
 
+// Создание ролей и пользователей
+do ##class(Security.Users).UnExpireUserPasswords("*")
+do ##class(Security.Roles).Create("CustomAdmin", "Custom admin role for OGS application")
+do ##class(Security.Roles).Create("Purchaser", "Custom purchaser role for OGS application")
+do ##class(Security.Roles).Create("GroceryAppUnknownUser", "Unauthenticated user role for OGS application")
+do ##class(Security.Users).Create("superadmin%40admin.com", "%All, CustomAdmin", "password", "Custom SuperUser")
+
 halt
