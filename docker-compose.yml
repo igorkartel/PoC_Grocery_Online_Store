@@ -9,4 +9,4 @@ services:
       environment:
         - ISC_DATA_DIRECTORY=/external/durable        
       volumes:
-        - ${PATH_TO_PROJECT}/external/durable:/external/durable
+        - ${PATH_TO_PROJECT}/external:/external

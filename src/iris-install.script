@@ -1,9 +1,0 @@
-zn "%SYS"
-
-// Компиляция App.Installer.cls
-do $system.OBJ.Load("/opt/irisapp/src/App.Installer.cls","ck")
-
-// Установка неймспейса и баз данных
-do ##class(App.Installer).Setup()
-
-halt
