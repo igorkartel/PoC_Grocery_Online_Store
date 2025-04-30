@@ -13,10 +13,10 @@ RUN chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /opt/irisapp && \
 USER ${ISC_PACKAGE_MGRUSER}
 
 COPY src src
+COPY module.xml module.xml
+COPY iris.script /tmp/iris.script
+COPY App.Installer.cls App.Installer.cls
 
 RUN iris start IRIS && \
-    iris session IRIS < /opt/irisapp/src/iris-install.script && \
-    iris stop IRIS quietly && \
-    iris start IRIS && \
-    iris session IRIS < /opt/irisapp/src/iris-load.script && \
+    iris session IRIS < /tmp/iris.script && \
     iris stop IRIS quietly

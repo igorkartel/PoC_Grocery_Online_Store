@@ -1,15 +1,26 @@
 Class GroceryApp.utils.Constants Extends %RegisteredObject
 {
-
+// Regions
 Parameter REGIONS = "EU,NA,APAC,LATAM,MEA,ANZ,SA,EE";
 
+// Class names
 Parameter REGIONCLASSNAME = "GroceryApp.data.Region";
 
+Parameter USERREGIONCLASSNAME = "GroceryApp.data.UserRegion";
+
+Parameter SECURITYUSERCLASSNAME = "Security.Users";
+
+// Table names
 Parameter REGIONTABLENAME = "GroceryApp_data.Region";
 
+Parameter SECURITYUSERTABLENAME = "Security.Users";
+
+// Page names
 Parameter LOGINPAGENAME = "GroceryApp.pages.auth.LoginPage.cls";
 
-Parameter LOGOUTPAGENAME = "#";
+Parameter ACCESSDENIEDPAGENAME = "GroceryApp.pages.auth.AccessDeniedPage.cls";
+
+Parameter LOGOUTPAGENAME = "GroceryApp.pages.auth.LogoutPage.cls";
 
 Parameter REGISTERPAGENAME = "GroceryApp.pages.auth.RegisterPage.cls";
 
@@ -23,18 +34,21 @@ Parameter MANAGEPRODUCTPAGENAME = "#";
 
 Parameter CARTPAGENAME = "#";
 
-Parameter ACCESSDENIEDPAGENAME = "#";
+// Error/Success messages
+Parameter REGISTRATIONSUCCESS = "Registration_is_successful.";
 
-Parameter SECURITYUSERTABLENAME = "%SYS.User";
+Parameter REGISTRATIONFAILED = "Registration_failed._Please_try_again.";
 
-// Стандартная таблица пользователей в IRIS
+Parameter LOGINFAILERROR = "Login_failed._Please_try_again.";
 
-Parameter LOGINFAILERR = "LOGIN_FAILED";
+Parameter REQUIREDFIELDSERROR = "Missing_fields.";
 
-Parameter LOGOUTSUCCESS = "LOGOUT_SUCCESS";
+Parameter LOGOUTSUCCESS = "Logout_is_successful.";
 
-Parameter INVALIDREGIONERR = "INVALID_REGION";
+Parameter INVALIDREGIONERROR = "Invalid_region_selected._Please_try_again.";
 
-Parameter MISSINGFIELDSERR = "MISSING_LOGIN_OR_PASSWORD";
+Parameter USEREXISTSERROR = "User_with_this_email_already_exists.";
+
+Parameter MISSINGFIELDSERROR = "Missing_Login_or_Password_fields.";
 
 }
