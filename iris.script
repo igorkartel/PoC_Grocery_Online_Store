@@ -1,0 +1,30 @@
+ROUTINE iris
+    zn "%SYS"
+
+    // Compile App.Installer.cls
+    do $system.OBJ.Load("/opt/irisapp/App.Installer.cls","ck")
+
+    // Setup "APP" namespace and databases for code and data
+    do ##class(App.Installer).Setup()
+
+    zn "APP"
+
+    // Load all the classes to "APP" namespace
+    do $system.OBJ.LoadDir("/opt/irisapp/src", "cuk","",1)
+    // Seeding data
+    do ##class(GroceryApp.utils.Seed).SeedRegions()
+
+    do $SYSTEM.SQL.Security.GrantPrivilege("SELECT", "GroceryApp_data.Region", "TABLE", "UnknownUser")
+
+    // Setup code db permissions to read-only to keep it updatable, creating roles and users
+    zn "%SYS"
+
+    do ##class(Security.Roles).Create("CustomAdmin", "Custom admin role for OGS application")
+    do ##class(Security.Roles).Create("Purchaser", "Custom purchaser role for OGS application")
+    do ##class(Security.Users).Create("customsuperuser%40admin.com", "%All,CustomAdmin", "password", "Custom SuperUser")
+    do ##class(Security.Users).AddRoles("SuperUser", "%all,CustomAdmin", 1)
+
+    // do ##class(App.Installer).SetupDBPermissions("/code/storeCode/", 1)
+    do ##class(Security.Users).UnExpireUserPasswords("*")
+
+    halt

@@ -18,7 +18,7 @@ Class GroceryApp.middleware.AuthMiddlewarePage Extends GroceryApp.pages.BasePage
             quit 0
         }
 
-        // Проверка на админа
+        // Checking admin role
         if $LISTFIND(adminOnlyUrls, %request.PageName) {
             if '##class(GroceryApp.middleware.AuthMiddlewarePage).IsAdmin() {
                 set %response.Redirect = const.#ACCESSDENIEDPAGENAME
@@ -29,7 +29,7 @@ Class GroceryApp.middleware.AuthMiddlewarePage Extends GroceryApp.pages.BasePage
         quit 1
     }
 
-    /// Проверка - админ ли пользователь
+    /// Checks if user is admin
     ClassMethod IsAdmin() As %Boolean
     {
         try {

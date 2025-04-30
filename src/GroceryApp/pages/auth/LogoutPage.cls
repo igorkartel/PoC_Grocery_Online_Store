@@ -9,6 +9,7 @@ ClassMethod OnPage() As %Status
         do %session.Set("isAuthenticated", 0)
         do %session.Set("email", "")
         do %session.Set("userId", "")
+        do %session.Set("isAdmin", 0)
         do %session.Set("cartId", "")
         do %session.Logout()
 

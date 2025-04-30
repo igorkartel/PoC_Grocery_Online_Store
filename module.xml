@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+    <Document name="GroceryApp.ZPM">
+        <Module>
+            <Name>GroceryApp</Name>
+            <Version>1.0.0</Version>
+            <Packaging>module</Packaging>
+            <SourcesRoot>src</SourcesRoot>
+            <Resource Name="GroceryApp.PKG"/>
+            <CSPApplication 
+                CookiePath="/csp/store/" 
+                DefaultTimeout="900" 
+                DeployPath="${cspdir}/store" 
+                PasswordAuthEnabled="0" 
+                Recurse="1" 
+                ServeFiles="1" 
+                ServeFilesTimeout="3600" 
+                SourcePath="/src/GroceryApp/pages" 
+                UnauthenticatedEnabled="1"
+                Url="/csp/store" 
+                UseSessionCookie="2"
+                LoginClass="GroceryApp.pages.auth.LoginPage.cls" 
+                MatchRoles=":%All"
+            />
+        </Module>
+    </Document>
+</Export>

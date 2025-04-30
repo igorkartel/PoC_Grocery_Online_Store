@@ -1,0 +1,40 @@
+ROUTINE iris
+    ZN "%SYS"
+    // Compile App.Installer.cls
+    Do $system.OBJ.Load("/opt/irisapp/App.Installer.cls","ck")
+    // Setup app namespace and db's for code and data
+    Do ##class(App.Installer).Setup()
+
+   // Load classes to app namespace
+    ZN "APP"
+    do ##class(%SYSTEM.OBJ).Load("/opt/irisapp/src/Reports/CubeClasses.xml", "ck")
+    do ##class(%DeepSee.UserLibrary.Utils).%ImportContainer("/opt/irisapp/src/Reports/BIContainers.xml")
+    Do $System.OBJ.LoadDir("/opt/irisapp/src/GroceryApp", "ck","",1)
+    Do $System.OBJ.LoadDir("/opt/irisapp/src/Recommender", "ck","",1)
+
+    ZN "%SYS"
+    // Setup code db permissions to read-only to keep it updatable
+    Do ##class(App.Installer).SetupDBPermissions("/code/storeCode/", 1)
+    do ##class(Security.Users).UnExpireUserPasswords("*")
+    do ##class(Security.Roles).Create("CustomAdmin", "Custom admin role for OGS application")
+    do ##class(Security.Roles).Create("Purchaser", "Custom purchaser role for OGS application")
+    do ##class(Security.Users).Create("CustomSuperUser%40admin.com", "%All,customadmin", "password", "Custom SuperUser")
+    do ##class(Security.Users).AddRoles("SuperUser", "%all,customadmin", 1)
+
+    //// Setup code to change default password. Remove file after testing new password.
+    // do ##class(SYS.Container).ChangePassword("/tmp/password.txt")
+
+    zn "APP"
+    do ##class(GroceryApp.utils.Seed).SeedRegions()
+    do ##class(GroceryApp.utils.Seed).SeedOrderStatuses()
+    do ##class(GroceryApp.utils.Seed).SeedPaymentMethods()
+    do ##class(GroceryApp.data.Category).AddMultipleCategories()
+    do ##class(GroceryApp.data.Product).AddMultipleProducts()
+    do ##class(GroceryApp.data.UserDeliveryAddress).AddMultipleAddress()
+    do ##class(GroceryApp.data.Order).AddMultipleOrders()
+    do ##class(GroceryApp.data.OrderItem).AddMultipleOrderItems()
+
+    // Not needed with current configuration, overwrites code db to duarble storage
+    //zpm "load /opt/irisapp/ -v":1:1
+
+    halt
